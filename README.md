@@ -16,3 +16,13 @@ It is a Gradle Project using Kotlin
  * `cdk docs`        open CDK documentation
 
 Enjoy!
+
+## Getting started
+
+### Install AWS CLI
+
+### Install CDK
+
+### Bootstrap CDK
+
+`cdk bootstrap`

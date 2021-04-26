@@ -3,7 +3,6 @@
  *
  * This generated file contains a sample Kotlin application project to get you started.
  */
-
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
@@ -49,12 +48,38 @@ dependencies {
     implementation "software.amazon.awscdk:events:${CDK_VERSION}"
     implementation "software.amazon.awscdk:events-targets:${CDK_VERSION}"
     implementation "software.amazon.awscdk:lambda:${CDK_VERSION}"
+    implementation "software.amazon.awscdk:codedeploy:${CDK_VERSION}"
+    implementation "software.amazon.awscdk:codecommit:${CDK_VERSION}"
+    implementation "software.amazon.awscdk:codepipeline-actions:${CDK_VERSION}"
     implementation "software.amazon.awscdk:lambda-event-sources:${CDK_VERSION}"
     implementation 'commons-cli:commons-cli:1.4'
-    implementation 'org.slf4j:slf4j-log4j12:1.7.28'
+//    implementation 'org.slf4j:slf4j-log4j12:1.7.30'
+//    implementation 'org.apache.logging.log4j:log4j-api:2.13.0'
+//    implementation 'org.apache.logging.log4j:log4j-core:2.13.0'
+    implementation 'io.github.microutils:kotlin-logging-jvm:2.0.6'
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j18-impl:2.13.0'
+    runtimeOnly 'com.amazonaws:aws-lambda-java-log4j2:1.2.0'
     implementation 'com.github.spullara.mustache.java:compiler:0.9.6'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4'
+
+    // Lambda SDK
+    implementation "com.amazonaws:aws-lambda-java-core:1.2.0"
 }
+
+// Build all dependencies into a zip file to use in Lambda
+task buildZip(type: Zip) {
+    // Build kotlin code into the zip
+    from compileKotlin
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+    // Need to have the file executable otherwise Lambda would throw ClassNotFoundException
+    dirMode = 0755
+    fileMode = 0755
+}
+
+build.dependsOn buildZip
 
 // Define the main class for the application.
 mainClassName = 'cdk.CdkAppKt'

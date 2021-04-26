@@ -6,7 +6,7 @@ sealed class AppStage(
         open val region: String
 ) {
     companion object {
-        fun getCurrentStage() = DeploymentAppStage("app-local-user", "accountId", "us-west-2")
+        fun getCurrentStage() = DeploymentAppStage("app-local-user", System.getenv("AWS_ACCOUNT_ID"), "us-west-2")
     }
 
     data class DeploymentAppStage(

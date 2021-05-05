@@ -13,7 +13,6 @@ import software.amazon.awscdk.services.codepipeline.actions.CodeBuildAction
 import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction
 import software.amazon.awscdk.services.lambda.CfnParametersCode
 
-
 class PipelineStack(scope: Construct, id: String, props: StackProps?) : Stack(scope, id, props) {
     fun buildStack(lambdaCode: CfnParametersCode, repoName: String) {
         val code = Repository.fromRepositoryName(this, "ImportedRepo", repoName)

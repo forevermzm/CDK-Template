@@ -25,4 +25,14 @@ Enjoy!
 
 ### Bootstrap CDK
 
+https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html
+
+V1 Bootstrap
 `cdk bootstrap`
+
+V2 Bootstrap
+```bash
+export CDK_NEW_BOOTSTRAP=1
+cdk bootstrap
+```
+
